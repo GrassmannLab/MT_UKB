@@ -94,13 +94,15 @@ cut -f400001-488377 -d' ' tmp.dos | sed '4d;5d;7d;8d;10d;12d;15d;17d;25d;26d;27d
  for us, the rows 169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p contain the high quality intensities; those will be extracted by sed
 
  probes that are useful on Affy 6.0 arrays: http://genvisis.umn.edu/rsrc/MitoCN/AffySnp6/gw6_MT_USE.oneHitWonders_20.06_28_16.txt but only 12 are present on the Axiom arrays
+
+```shell
 echo 'medLRRMT' > UKBB_CHRMT_medLRRMT_Genivis.txt
 cut -f1-100000 -d' ' tmp.dos | sed -n '169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p' | /datamash-1.4/datamash --narm -t ' ' median 1-100000 | tr -s ' '  '\n' >> UKBB_CHRMT_medLRRMT_Genivis.txt
 cut -f100001-200000 -d' ' tmp.dos | sed -n  '169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p' | /datamash-1.4/datamash --narm -t ' ' median 1-100000 | tr -s ' '  '\n' >> UKBB_CHRMT_medLRRMT_Genivis.txt
 cut -f200001-300000 -d' ' tmp.dos | sed -n '169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p' | /datamash-1.4/datamash --narm -t ' ' median 1-100000 | tr -s ' '  '\n' >> UKBB_CHRMT_medLRRMT_Genivis.txt
 cut -f300001-400000 -d' ' tmp.dos | sed -n '169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p' | /datamash-1.4/datamash --narm -t ' ' median 1-100000 | tr -s ' '  '\n' >> UKBB_CHRMT_medLRRMT_Genivis.txt
 cut -f400001-488377 -d' ' tmp.dos | sed -n '169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p' | /datamash-1.4/datamash --narm -t ' ' median 1-88377 | tr -s ' '  '\n' >> UKBB_CHRMT_medLRRMT_Genivis.txt
-
+```
 
 ## 3.4 compute mtDNA abundance from weighted intensities
 ```shell
@@ -109,6 +111,7 @@ echo 'medLRRMT' > UKBB_CHRMT_medLRRMT_QC_Exome.txt
  extract the corresponding probes with sed, this may be the same for you but you should check (see supplementary table S1, i.e. here we keep probe 4,19,20,21,24 ...).
 
  score.txt has the weight for each probe. the intensity of the probe will be multiplied with the weight and then datamash computes the mean out of that
+
 ```shell
 zcat _001_ukb_l2r_chrMT_v2.txt.gz | cut -f1-100000 -d' '  | sed '1d;2d;3d;5d;6d;7d;8d;9d;10d;11d;12d;13d;14d;15d;16d;17d;18d;22d;24d;25d;26d;27d;29d;30d;33d;34d;35d;36d;37d;39d;40d;41d;42d;44d;45d;46d;47d;50d;51d;52d;53d;54d;55d;57d;58d;59d;60d;62d;64d;66d;67d;69d;70d;71d;72d;73d;74d;75d;76d;77d;78d;80d;81d;82d;84d;86d;87d;88d;89d;90d;91d;92d;94d;95d;96d;97d;98d;99d;100d;101d;102d;103d;104d;105d;106d;107d;108d;110d;112d;113d;114d;115d;117d;118d;119d;120d;121d;122d;123d;124d;125d;126d;127d;128d;129d;133d;134d;135d;136d;137d;138d;139d;140d;141d;142d;143d;145d;146d;147d;148d;149d;150d;151d;152d;153d;155d;157d;159d;160d;161d;162d;163d;167d;168d;169d;170d;172d;173d;174d;175d;176d;177d;178d;179d;180d;181d;182d;183d;184d;185d;186d;187d;188d;189d;190d;191d;192d;193d;194d;195d;196d;197d;198d;199d;200d;201d;202d;203d;204d;207d;208d;209d;210d;211d;212d;213d;215d;216d;218d;219d;220d;221d;222d;223d;224d;225d;226d;227d;228d;229d;230d;231d;232d;233d;235d;236d;238d;239d;241d;242d;245d;246d;247d;248d;249d;250d;251d;252d;253d;254d;255d;256d;257d;258d;259d;260d;261d;262d;264d;265d' | /datamash-1.4/datamash --narm -t ' ' transpose > tmp.dose
 awk 'NR==FNR{A[NR]=$1; next} FNR==1{n=NF}{for(i=1; i<=n; i++) $(i)=$i=="NA"?$i:$i*A[i]}1' score.txt tmp.dose > tmp.dose.adj
@@ -129,12 +132,13 @@ awk 'NR==FNR{A[NR]=$1; next} FNR==1{n=NF}{for(i=1; i<=n; i++) $(i)=$i=="NA"?$i:$
 zcat _001_ukb_l2r_chrMT_v2.txt.gz | cut -f400001-488377 -d' '  | sed '1d;2d;3d;5d;6d;7d;8d;9d;10d;11d;12d;13d;14d;15d;16d;17d;18d;22d;24d;25d;26d;27d;29d;30d;33d;34d;35d;36d;37d;39d;40d;41d;42d;44d;45d;46d;47d;50d;51d;52d;53d;54d;55d;57d;58d;59d;60d;62d;64d;66d;67d;69d;70d;71d;72d;73d;74d;75d;76d;77d;78d;80d;81d;82d;84d;86d;87d;88d;89d;90d;91d;92d;94d;95d;96d;97d;98d;99d;100d;101d;102d;103d;104d;105d;106d;107d;108d;110d;112d;113d;114d;115d;117d;118d;119d;120d;121d;122d;123d;124d;125d;126d;127d;128d;129d;133d;134d;135d;136d;137d;138d;139d;140d;141d;142d;143d;145d;146d;147d;148d;149d;150d;151d;152d;153d;155d;157d;159d;160d;161d;162d;163d;167d;168d;169d;170d;172d;173d;174d;175d;176d;177d;178d;179d;180d;181d;182d;183d;184d;185d;186d;187d;188d;189d;190d;191d;192d;193d;194d;195d;196d;197d;198d;199d;200d;201d;202d;203d;204d;207d;208d;209d;210d;211d;212d;213d;215d;216d;218d;219d;220d;221d;222d;223d;224d;225d;226d;227d;228d;229d;230d;231d;232d;233d;235d;236d;238d;239d;241d;242d;245d;246d;247d;248d;249d;250d;251d;252d;253d;254d;255d;256d;257d;258d;259d;260d;261d;262d;264d;265d' | /datamash-1.4/datamash --narm -t ' ' transpose > tmp.dose
 awk 'NR==FNR{A[NR]=$1; next} FNR==1{n=NF}{for(i=1; i<=n; i++) $(i)=$i=="NA"?$i:$i*A[i]}1' score.txt tmp.dose > tmp.dose.adj
 /datamash-1.4/datamash --narm -t ' ' transpose < tmp.dose.adj | /datamash-1.4/datamash --narm -t ' ' mean 1-88377 | tr -s ' '  '\n'   >> UKBB_CHRMT_medLRRMT_QC_Exome.txt
-
 ```
+
 ## 3.5 compute mtDNA abundance from the coverage of the MT genome
  download the CRAM files (around 5 TB in total for 50k participants) of each participant
 
  index with samtools
+
 ```shell
 find . -name "*.cram" | xargs -n1 -P20 -I{} samtools index {}
 ```
