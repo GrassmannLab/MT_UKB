@@ -231,11 +231,12 @@ for(plate in unique(phenotypes$genotyping_plate)[order(unique(phenotypes$genotyp
 
 
 summary(phenotypes$mLRRMT_norm)
-#     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
-# -5.139131 -0.661685 -0.007579  0.000000  0.652375  4.790622 
+
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
+ -5.139131 -0.661685 -0.007579  0.000000  0.652375  4.790622 
 ```
 
 
-
-## -------------- END -------------------
+--------------
+## -------------- END --------------
  
