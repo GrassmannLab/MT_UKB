@@ -7,7 +7,7 @@
 ------------------------------------------
 
 
-## ------------------  1. first steps: ------------------
+##  1. first steps: 
 ### a) download the l2r, bim and fam files from UKB with ukbgene (files are QC'ed by UKB i.e. do only contain 265 SNPs and not the around 500 MT SNPs that are on the array)
 ### b) download and install datamash (version 1.4)
 ### c) download and install tabix and bcftools
@@ -17,7 +17,7 @@
 
 ----------------------------------------
 
-## ------------------ 2. calculate SDLRR from the lrr values of all autosomes ------------------
+##  2. calculate SDLRR from the lrr values of all autosomes 
 ### this is used as a quality control measure (excluding samples with SDLRR_auto > 0.36)
 ### Use MoChA to get this measure: https://github.com/freeseek/mocha
 ### Just a heads-up, using MoChA might take a while to get the data right, probably best to start from the .cel files and use gtc2vcf
@@ -26,8 +26,7 @@
 ----------------------------------------
 
 
-
-## ------------------ 3. compute mtDNA abundance from all 265 SNPs ------------------
+##  3. compute mtDNA abundance from all 265 SNPs 
 ## 3.1 compute the median of the L2R values (mtL2R) on the MT chromosome (no in-house QC, equivalent to MoChA output)
 ### extract dosages so we do not need to have i/o each step
 ```shell
@@ -176,7 +175,7 @@ q()
 
 ----------------------------------------
 
-## ------------------  4. Compute haplogroups with haplogrep ------------------
+##   4. Compute haplogroups with haplogrep 
 
 ### haplogrep needs an annotated vcf (containing the same rsIDs as haplogrep expects)
 ### first convert the UKB snp file in plink format to vcf
@@ -208,7 +207,7 @@ java -jar /haplogrep/haplogrep-2.1.25.jar --in  _001_ukb_snp_chrMT_v2_annotated.
 
 ----------------------------------------
 
-## ------------------  5. Quality control: ------------------
+##   5. Quality control: 
 
 ### 1. exclude people with sex chromosome anomalies (!is.na(sex_aneu)) and participants whose genetic sex does not match the reported (MOCHA_SEX != UK Biobank phenotype sex)
 ### 2. exclude individuals that failed genotyping QC: gen_exclude
@@ -221,7 +220,7 @@ java -jar /haplogrep/haplogrep-2.1.25.jar --in  _001_ukb_snp_chrMT_v2_annotated.
 
 
 #########################################
-## ------------------  6. normalize mLRRMT per genotyping plate (variable "22007-0.0" in UKB) ------------------
+##   6. normalize mLRRMT per genotyping plate (variable "22007-0.0" in UKB) 
 ### this effectively creates the final outcome or exposure for the analyses
 ### here, we used the weighted mLRRMT value (mLRRMT)
 ```R
