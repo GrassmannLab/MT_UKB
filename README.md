@@ -91,9 +91,10 @@ cut -f400001-488377 -d' ' tmp.dos | sed '4d;5d;7d;8d;10d;12d;15d;17d;25d;26d;27d
 ```
 
 ## 3.3 compute mtDNA abundance from high quality SNPs/probes (affy 6.0 snps)
+ probes that are useful on Affy 6.0 arrays: http://genvisis.umn.edu/rsrc/MitoCN/AffySnp6/gw6_MT_USE.oneHitWonders_20.06_28_16.txt but only 12 are present on the Axiom arrays
+
  for us, the rows 169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p contain the high quality intensities; those will be extracted by sed
 
- probes that are useful on Affy 6.0 arrays: http://genvisis.umn.edu/rsrc/MitoCN/AffySnp6/gw6_MT_USE.oneHitWonders_20.06_28_16.txt but only 12 are present on the Axiom arrays
 
 ```shell
 echo 'medLRRMT' > UKBB_CHRMT_medLRRMT_Genivis.txt
@@ -234,7 +235,12 @@ java -jar /haplogrep/haplogrep-2.1.25.jar --in  _001_ukb_snp_chrMT_v2_annotated.
 ##   6. normalize mLRRMT per genotyping plate (variable "22007-0.0" in UKB) 
  this effectively creates the final outcome or exposure for the analyses
  here, we used the weighted mLRRMT value (mLRRMT)
+
+```shell
+R
 ```
+
+```R
 phenotypes$mLRRMT_norm=NA
 for(plate in unique(phenotypes$genotyping_plate)[order(unique(phenotypes$genotyping_plate))]){
     phenotypes[phenotypes$genotyping_plate==plate, "mLRRMT_norm"]=scale(phenotypes[phenotypes$genotyping_plate==plate, "mLRRMT"])
