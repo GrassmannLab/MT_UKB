@@ -1,7 +1,7 @@
 
 ---------------------------
 # COMPUTE MT DNA ABUNDACE FROM WEIGHTED PROBES 
-## also: compute QC measures                      
+## also: compute other MTDNA abundace estimates and QC measures                      
 ### Author: Felix Grassmann, UoA, 2020           
 ### GitHub version 1.0
 ### this is the companion script to: https://pubmed.ncbi.nlm.nih.gov/33385171/
