@@ -88,8 +88,8 @@ cut -f400001-488377 -d' ' tmp.dos | sed '4d;5d;7d;8d;10d;12d;15d;17d;25d;26d;27d
 ```
 
 ## 3.3 compute mtDNA abundance from high quality SNPs/probes (affy 6.0 snps)
-# for us, the rows 169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p contain the high quality intensities; those will be extracted by sed
-# probes that are useful: http://genvisis.umn.edu/rsrc/MitoCN/AffySnp6/gw6_MT_USE.oneHitWonders_20.06_28_16.txt but only 12 are present on the Axiom arrays
+### for us, the rows 169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p contain the high quality intensities; those will be extracted by sed
+### probes that are useful on Affy 6.0 arrays: http://genvisis.umn.edu/rsrc/MitoCN/AffySnp6/gw6_MT_USE.oneHitWonders_20.06_28_16.txt but only 12 are present on the Axiom arrays
 echo 'medLRRMT' > UKBB_CHRMT_medLRRMT_Genivis.txt
 cut -f1-100000 -d' ' tmp.dos | sed -n '169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p' | /datamash-1.4/datamash --narm -t ' ' median 1-100000 | tr -s ' '  '\n' >> UKBB_CHRMT_medLRRMT_Genivis.txt
 cut -f100001-200000 -d' ' tmp.dos | sed -n  '169p;31p;33p;49p;150p;157p;38p;202p;236p;183p;201p;166p' | /datamash-1.4/datamash --narm -t ' ' median 1-100000 | tr -s ' '  '\n' >> UKBB_CHRMT_medLRRMT_Genivis.txt
@@ -236,6 +236,6 @@ summary(phenotypes$mLRRMT_norm)
 ```
 
 
-#############################
-##########################END
+
+## -------------- END -------------------
  
